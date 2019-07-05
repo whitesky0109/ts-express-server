@@ -1,4 +1,4 @@
-# Express.js + Typescript + Webpack + node-opcua + socket.io + sqlite3
+# Express.js + Typescript + Webpack + socket.io + sqlite3
 
 ## Requirement
 
@@ -24,9 +24,6 @@ node ./dist/main.bundle.js
 ```bash
 npm run watch # or yarn watch
 ```
-
-## API Doc
-[API 문서 보기](./docs/api/index.html)
 
 ## Reference Sites
 
