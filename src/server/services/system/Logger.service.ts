@@ -4,7 +4,7 @@ import { Service } from 'typedi';
 import { IService } from '../../../models';
 
 @Service()
-export default class LoggerSrv implements IService {
+export default class LoggerService implements IService {
   private logger: Logger;
 
   constructor() {

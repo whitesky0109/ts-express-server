@@ -1,11 +1,11 @@
 import { OnConnect, SocketController, ConnectedSocket, OnDisconnect } from 'socket-controllers';
-import { SocketManagerSrv, LoggerSrv } from '../../services';
+import { SocketManagerService, LoggerService } from '../../services';
 
 @SocketController('/ws')
 export class WsMessageController {
 
-  constructor(private sockMgrSrv: SocketManagerSrv,
-              private loggerSrv: LoggerSrv,
+  constructor(private sockMgrSrv: SocketManagerService,
+              private loggerSrv: LoggerService,
     ) {
     this.loggerSrv.info('created WsMessageController');
 

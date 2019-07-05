@@ -16,11 +16,9 @@ const path = require('path');
 import './controllers';
 import {
   // System Services
-  SettingSrv, StorageSrv,
-  // node-opcua Services
-  SocketManagerSrv,
-  // Data Processing Services
-  LoggerSrv,
+  SettingService, StorageService, LoggerService,
+  // Message Processing Services
+  SocketManagerService,
 } from './services';
 import { IService } from '../models';
 import { EventEmitter } from 'events';
@@ -68,7 +66,7 @@ export default class MainServer extends EventEmitter {
     });
 
     /* create System Logger */
-    const loggerSrv = Container.get(LoggerSrv);
+    const loggerSrv = Container.get(LoggerService);
     loggerSrv.info(`\n${figlet.textSync('Sample')}`);
 
     /* register logger Service */
@@ -76,7 +74,7 @@ export default class MainServer extends EventEmitter {
 
     /* register service instance */
     this.addServices();
-    this.port = port ? parseInt(port, 10) : Container.get(SettingSrv).getPort();
+    this.port = port ? parseInt(port, 10) : Container.get(SettingService).getPort();
   }
 
   public addMiddleware(middleware: any): void {
@@ -88,7 +86,7 @@ export default class MainServer extends EventEmitter {
       { name: 'socketIO', instance: this.io },
     ];
 
-    const loggerSrv = Container.get(LoggerSrv);
+    const loggerSrv = Container.get(LoggerService);
     for (const { name, instance } of etcInstances) {
       Container.set(name, instance);
       loggerSrv.info(`[init] DI Registered ${name}`);
@@ -96,10 +94,10 @@ export default class MainServer extends EventEmitter {
 
     const registerServices = [
       /* System Services */
-      SettingSrv,
-      StorageSrv,
+      SettingService,
+      StorageService,
       StorageMigrationService,
-      SocketManagerSrv,
+      SocketManagerService,
     ];
     // register system services
     for (const service of registerServices) {
@@ -122,7 +120,7 @@ export default class MainServer extends EventEmitter {
 
   public runServ(): Promise<http.Server> {
 
-    const loggerSrv = Container.get(LoggerSrv);
+    const loggerSrv = Container.get(LoggerService);
     return new Promise((resolve: any) => {
       this.once('ready', () => {
         resolve(this.server.listen(this.port, () =>

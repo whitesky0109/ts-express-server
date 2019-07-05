@@ -7,19 +7,19 @@ const { dataType } = require('db-migrate-shared');
 
 import 'reflect-metadata';
 import { Service } from 'typedi';
-import { SettingSrv, LoggerSrv } from '.';
+import { SettingService, LoggerService } from '.';
 import { EventEmitter } from 'events';
 import { IService } from '../../../models';
 
 @Service()
-export default class StorageSrv extends EventEmitter implements IService {
+export default class StorageService extends EventEmitter implements IService {
 
   public db: any;
   private dbname: string;
 
   constructor(
-        private logger: LoggerSrv,
-        private settingSrv: SettingSrv,
+        private logger: LoggerService,
+        private settingSrv: SettingService,
     ) {
     super();
     this.logger.info('created StorageSrv');

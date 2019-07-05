@@ -1,14 +1,14 @@
 import 'reflect-metadata';
 import { Service } from 'typedi';
 import { IService } from '../../../models';
-import { LoggerSrv } from '.';
+import { LoggerService } from '.';
 
 @Service()
-export default class SocketManagerSrv implements IService {
+export default class SocketManagerService implements IService {
 
   private sockets: any = {};
 
-  constructor(private logger: LoggerSrv) {
+  constructor(private logger: LoggerService) {
     this.logger.info('created SocketMangerSrv');
   }
 

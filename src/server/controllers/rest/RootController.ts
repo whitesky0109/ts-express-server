@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { Controller, Get, Render } from 'routing-controllers';
-import { LoggerSrv } from '../../services';
+import { LoggerService } from '../../services';
 
 @Controller('')
 export class RootController {
 
-  constructor(private loggerSrv: LoggerSrv) {
+  constructor(private loggerSrv: LoggerService) {
     this.loggerSrv.info('created RootController');
   }
 

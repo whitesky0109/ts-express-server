@@ -2,21 +2,21 @@ import 'reflect-metadata';
 import { Service } from 'typedi';
 import { EventEmitter } from 'events';
 import { IMigrationLogs, IMigrationLog, IService } from '../../../models';
-import Migration_logRepository from './repositories/Migration_log.repository';
+import migrationLogRepository from './repositories/migrationLog.repository';
 import StorageService from './Storage.service';
-import { LoggerSrv } from '.';
+import { LoggerService } from '.';
 
 @Service()
-export default class StorageMigrationSrv extends EventEmitter implements IService {
+export default class StorageMigrationService extends EventEmitter implements IService {
 
   private migrations: any[] = [];
 
   constructor(
-        private logger: LoggerSrv,
+        private logger: LoggerService,
         private storageSrv: StorageService,
 
         /* sqlite3 table reposiotries */
-        private migrationLogRepository: Migration_logRepository,
+        private migrationLogRepository: migrationLogRepository,
     ) {
     super();
     this.logger.info('created StorageMigrationSrv');

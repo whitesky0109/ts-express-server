@@ -1,15 +1,15 @@
 import 'reflect-metadata';
 // System Services
 import {
-    SettingSrv,
-    StorageSrv,
-    LoggerSrv,
-    SocketManagerSrv,
+    SettingService,
+    StorageService,
+    LoggerService,
+    SocketManagerService,
 } from './system';
 
 export {
-    StorageSrv,
-    SocketManagerSrv,
-    SettingSrv,
-    LoggerSrv,
+    StorageService,
+    SocketManagerService,
+    SettingService,
+    LoggerService,
 };
