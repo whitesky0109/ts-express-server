@@ -1,28 +1,28 @@
-import { OnConnect, SocketController, ConnectedSocket, OnDisconnect, } from "socket-controllers";
-import { SocketManagerSrv, LoggerSrv } from "../../services";
+import { OnConnect, SocketController, ConnectedSocket, OnDisconnect } from 'socket-controllers';
+import { SocketManagerSrv, LoggerSrv } from '../../services';
 
-@SocketController("/ws")
+@SocketController('/ws')
 export class WsMessageController {
 
-    constructor(private sockMgrSrv: SocketManagerSrv,
-        private loggerSrv: LoggerSrv
+  constructor(private sockMgrSrv: SocketManagerSrv,
+              private loggerSrv: LoggerSrv,
     ) {
-        this.loggerSrv.info("created WsMessageController");
+    this.loggerSrv.info('created WsMessageController');
 
-    }
+  }
 
-    @OnConnect()
+  @OnConnect()
     connection(@ConnectedSocket() socket: SocketIO.Socket) {
-        this.sockMgrSrv.addSocket(socket);
-        this.loggerSrv.info("client connected");
-    }
+    this.sockMgrSrv.addSocket(socket);
+    this.loggerSrv.info('client connected');
+  }
 
-    @OnDisconnect()
+  @OnDisconnect()
     disconnect(@ConnectedSocket() socket: SocketIO.Socket) {
-        const { id }: { id: string } = socket;
+    const { id }: { id: string } = socket;
 
-        this.sockMgrSrv.delSocket(id);
-    }
+    this.sockMgrSrv.delSocket(id);
+  }
 
     /*
     @OnMessage("save")

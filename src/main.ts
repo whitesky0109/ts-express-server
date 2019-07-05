@@ -1,5 +1,5 @@
-import MainServer from './server';
+import server from './server';
 
-const serv = new MainServer(process.env.PORT);
+const serv = new server(process.env.PORT);
 
 serv.runServ();
