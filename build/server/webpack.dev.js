@@ -12,8 +12,8 @@ conf = Object.assign(conf, {
 
 // watcher
 conf.plugins.push(new NodemonPlugin({
-    watch: path.resolve('./dist'),
-    script: './dist/server.bundle.js',
+    watch: path.resolve('./dist/server'),
+    script: './dist/server/server.bundle.js',
 }));
 
 module.exports = conf;

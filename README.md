@@ -2,9 +2,9 @@
 
 ## Requirement
 
-1. node v8.12.x or higher
-2. npm 6.4.x or higher
-3. (optional) yarn 1.11 or higher
+1. node v10.16.x or higher
+2. npm 6.9.x or higher
+3. (optional) yarn 1.16 or higher
 
 ## Preinstall
 
@@ -12,17 +12,23 @@
 npm install
 ```
 
-## How to build node.js app
+## How to Quickstart web server
 
 ```bash
 npm run build # or yarn build
-node ./dist/main.bundle.js
+npm run start # or yarn start
 ```
 
 ## How to development node.js app
 
 ```bash
-npm run watch # or yarn watch
+npm run server:watch # or yarn server:watch
+```
+
+## How to development fornt-end app
+
+```bash
+npm run front:watch # or yarn front:watch
 ```
 
 ## Reference Sites

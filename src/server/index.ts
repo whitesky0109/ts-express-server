@@ -36,7 +36,7 @@ export default class MainServer extends EventEmitter {
   private server: http.Server;
 
   constructor(port?: string) {
-    const rootPath: string = path.join("dist");
+    const rootPath: string = path.join("dist", 'public');
     super();
 
     /* setter */
@@ -49,7 +49,7 @@ export default class MainServer extends EventEmitter {
 
     /* set Html View Render */
     this.app.engine('html', require('ejs').renderFile);
-    this.app.set('views', path.join(rootPath, 'public'));
+    this.app.set('views', path.join(rootPath));
     this.app.set('view engine', 'html');
 
     useExpressServer(this.app);
