@@ -67,6 +67,7 @@
     "express": "^4.17.1",
     "figlet": "^1.2.3",
     "morgan": "^1.9.1",
+    "open": "^6.4.0",
     "react": "^16.8.6",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.7.7",

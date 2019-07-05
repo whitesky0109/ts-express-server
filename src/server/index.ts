@@ -12,6 +12,7 @@ const morgan = require('morgan');
 const figlet = require('figlet');
 const cors = require('cors');
 const path = require('path');
+const open = require('open');
 
 import './controllers';
 import {
@@ -122,9 +123,10 @@ export default class MainServer extends EventEmitter {
 
     const loggerSrv = Container.get(LoggerService);
     return new Promise((resolve: any) => {
-      this.once('ready', () => {
+      this.once('ready', async () => {
         resolve(this.server.listen(this.port, () =>
           loggerSrv.info(`listening on port ${this.port}`)));
+        await open('http://localhost:4000');
       });
     });
   }
