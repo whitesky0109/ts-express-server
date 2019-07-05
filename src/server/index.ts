@@ -54,7 +54,7 @@ export default class MainServer extends EventEmitter {
 
     useExpressServer(this.app);
     this.server = http.createServer(this.app);
-    this.app.use(express.static(rootPath));
+    this.app.use("/public", express.static(rootPath));
 
     /* create websocket listener */
     this.io = socketIO(this.server);

@@ -5,6 +5,9 @@ const NodemonPlugin = require( 'nodemon-webpack-plugin' );
 var conf = baseWebpackConfig;
 conf = Object.assign(conf, {
     mode: 'development',
+    entry: {
+        'main': './main.ts',
+    },
 });
 
 // watcher
