@@ -8,7 +8,7 @@
     "server:build": "webpack --config ./build/server/webpack.prod.js --progress",
     "server:dev": "webpack --config ./build/server/webpack.dev.js --progress",
     "server:watch": "webpack --config ./build/server/webpack.dev.js --progress --watch",
-    "server:start": "node ./dist/main.bundle.js",
+    "server:start": "node ./dist/server.bundle.js",
     "front:build": "webpack --config ./build/front/webpack.prod.js --progress",
     "front:dev": "webpack --config ./build/front/webpack.dev.js --progress",
     "front:watch": "webpack-dev-server --mode development --progress --colors --config ./build/front/webpack.dev.js "

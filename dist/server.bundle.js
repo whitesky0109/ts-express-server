@@ -306,7 +306,7 @@ class MainServer extends events_1.EventEmitter {
         this.app.set('view engine', 'html');
         routing_controllers_1.useExpressServer(this.app);
         this.server = http_1.default.createServer(this.app);
-        this.app.use(express_1.default.static(rootPath));
+        this.app.use("/public", express_1.default.static(rootPath));
         /* create websocket listener */
         this.io = socket_io_1.default(this.server);
         this.io.use((socket, next) => {
@@ -1099,4 +1099,4 @@ module.exports = require("winston");
 /***/ })
 
 /******/ });
-//# sourceMappingURL=main.bundle.js.map
+//# sourceMappingURL=server.bundle.js.map

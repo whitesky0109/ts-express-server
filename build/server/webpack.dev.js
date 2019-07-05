@@ -6,14 +6,14 @@ var conf = baseWebpackConfig;
 conf = Object.assign(conf, {
     mode: 'development',
     entry: {
-        'main': './main.ts',
+        server: './main.ts',
     },
 });
 
 // watcher
 conf.plugins.push(new NodemonPlugin({
     watch: path.resolve('./dist'),
-    script: './dist/main.bundle.js',
+    script: './dist/server.bundle.js',
 }));
 
 module.exports = conf;
