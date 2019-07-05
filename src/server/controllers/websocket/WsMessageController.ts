@@ -1,4 +1,4 @@
-import { OnConnect, SocketController, ConnectedSocket, OnDisconnect, MessageBody, OnMessage } from "socket-controllers";
+import { OnConnect, SocketController, ConnectedSocket, OnDisconnect, } from "socket-controllers";
 import { SocketManagerSrv, LoggerSrv } from "../../services";
 
 @SocketController("/ws")

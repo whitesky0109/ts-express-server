@@ -77,19 +77,19 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./main.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/main.ts":
-/*!*********************!*\
-  !*** ./src/main.ts ***!
-  \*********************/
+/***/ "./main.ts":
+/*!*****************!*\
+  !*** ./main.ts ***!
+  \*****************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -99,17 +99,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __importDefault(__webpack_require__(/*! ./server */ "./src/server/index.ts"));
+const server_1 = __importDefault(__webpack_require__(/*! ./server */ "./server/index.ts"));
 const serv = new server_1.default(process.env.PORT);
 serv.runServ();
 
 
 /***/ }),
 
-/***/ "./src/server/config/config.json":
-/*!***************************************!*\
-  !*** ./src/server/config/config.json ***!
-  \***************************************/
+/***/ "./server/config/config.json":
+/*!***********************************!*\
+  !*** ./server/config/config.json ***!
+  \***********************************/
 /*! exports provided: port, sqlite, default */
 /***/ (function(module) {
 
@@ -117,26 +117,26 @@ module.exports = {"port":4000,"sqlite":"database.db","default":{"destinations":[
 
 /***/ }),
 
-/***/ "./src/server/controllers/index.ts":
-/*!*****************************************!*\
-  !*** ./src/server/controllers/index.ts ***!
-  \*****************************************/
+/***/ "./server/controllers/index.ts":
+/*!*************************************!*\
+  !*** ./server/controllers/index.ts ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(/*! ./rest/RootController */ "./src/server/controllers/rest/RootController.ts");
-__webpack_require__(/*! ./websocket/WsMessageController */ "./src/server/controllers/websocket/WsMessageController.ts");
+__webpack_require__(/*! ./rest/RootController */ "./server/controllers/rest/RootController.ts");
+__webpack_require__(/*! ./websocket/WsMessageController */ "./server/controllers/websocket/WsMessageController.ts");
 
 
 /***/ }),
 
-/***/ "./src/server/controllers/rest/RootController.ts":
-/*!*******************************************************!*\
-  !*** ./src/server/controllers/rest/RootController.ts ***!
-  \*******************************************************/
+/***/ "./server/controllers/rest/RootController.ts":
+/*!***************************************************!*\
+  !*** ./server/controllers/rest/RootController.ts ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -154,16 +154,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 const routing_controllers_1 = __webpack_require__(/*! routing-controllers */ "routing-controllers");
-const services_1 = __webpack_require__(/*! ../../services */ "./src/server/services/index.ts");
+const services_1 = __webpack_require__(/*! ../../services */ "./server/services/index.ts");
 let RootController = class RootController {
     constructor(loggerSrv) {
         this.loggerSrv = loggerSrv;
         this.loggerSrv.info("created RootController");
     }
     helloServer() {
-        return [
-            { hello: "Hello Node.js Express Server" },
-        ];
     }
     getApi() {
         return [
@@ -173,7 +170,7 @@ let RootController = class RootController {
 };
 __decorate([
     routing_controllers_1.Get("/"),
-    routing_controllers_1.ContentType("application/json"),
+    routing_controllers_1.Render("index.html"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
@@ -193,10 +190,10 @@ exports.RootController = RootController;
 
 /***/ }),
 
-/***/ "./src/server/controllers/websocket/WsMessageController.ts":
-/*!*****************************************************************!*\
-  !*** ./src/server/controllers/websocket/WsMessageController.ts ***!
-  \*****************************************************************/
+/***/ "./server/controllers/websocket/WsMessageController.ts":
+/*!*************************************************************!*\
+  !*** ./server/controllers/websocket/WsMessageController.ts ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -216,7 +213,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const socket_controllers_1 = __webpack_require__(/*! socket-controllers */ "socket-controllers");
-const services_1 = __webpack_require__(/*! ../../services */ "./src/server/services/index.ts");
+const services_1 = __webpack_require__(/*! ../../services */ "./server/services/index.ts");
 let WsMessageController = class WsMessageController {
     constructor(sockMgrSrv, loggerSrv) {
         this.sockMgrSrv = sockMgrSrv;
@@ -256,15 +253,15 @@ exports.WsMessageController = WsMessageController;
 
 /***/ }),
 
-/***/ "./src/server/index.ts":
-/*!*****************************!*\
-  !*** ./src/server/index.ts ***!
-  \*****************************/
+/***/ "./server/index.ts":
+/*!*************************!*\
+  !*** ./server/index.ts ***!
+  \*************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(__dirname) {
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -278,7 +275,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
-__webpack_require__(/*! ./polyfills */ "./src/server/polyfills.ts");
+__webpack_require__(/*! ./polyfills */ "./server/polyfills.ts");
 const routing_controllers_1 = __webpack_require__(/*! routing-controllers */ "routing-controllers");
 const socket_controllers_1 = __webpack_require__(/*! socket-controllers */ "socket-controllers");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
@@ -288,12 +285,14 @@ const socket_io_1 = __importDefault(__webpack_require__(/*! socket.io */ "socket
 const morgan = __webpack_require__(/*! morgan */ "morgan");
 const figlet = __webpack_require__(/*! figlet */ "figlet");
 const cors = __webpack_require__(/*! cors */ "cors");
-__webpack_require__(/*! ./controllers */ "./src/server/controllers/index.ts");
-const services_1 = __webpack_require__(/*! ./services */ "./src/server/services/index.ts");
-const StorageMigration_service_1 = __importDefault(__webpack_require__(/*! ./services/system/StorageMigration.service */ "./src/server/services/system/StorageMigration.service.ts"));
+const path = __webpack_require__(/*! path */ "path");
+__webpack_require__(/*! ./controllers */ "./server/controllers/index.ts");
+const services_1 = __webpack_require__(/*! ./services */ "./server/services/index.ts");
+const StorageMigration_service_1 = __importDefault(__webpack_require__(/*! ./services/system/StorageMigration.service */ "./server/services/system/StorageMigration.service.ts"));
 const events_1 = __webpack_require__(/*! events */ "events");
 class MainServer extends events_1.EventEmitter {
     constructor(port) {
+        const rootPath = path.join("dist");
         super();
         /* setter */
         routing_controllers_1.useContainer(typedi_1.Container);
@@ -301,11 +300,23 @@ class MainServer extends events_1.EventEmitter {
         /* create Server */
         this.app = express_1.default();
         this.app.use(cors());
+        /* set Html View Render */
+        this.app.engine('html', __webpack_require__(/*! ejs */ "ejs").renderFile);
+        this.app.set('views', path.join(rootPath, 'public'));
+        this.app.set('view engine', 'html');
         routing_controllers_1.useExpressServer(this.app);
         this.server = http_1.default.createServer(this.app);
+        this.app.use(express_1.default.static(rootPath));
         /* create websocket listener */
-        this.io = socket_io_1.default(this.server, { serveClient: false });
-        socket_controllers_1.useSocketServer(this.io);
+        this.io = socket_io_1.default(this.server);
+        this.io.use((socket, next) => {
+            console.log("Custom middleware");
+            next();
+        });
+        console.log(__dirname);
+        socket_controllers_1.useSocketServer(this.io, {
+            controllers: [path.join(__dirname, "controllers", "websocket", "*.js")],
+        });
         /* create System Logger */
         const loggerSrv = typedi_1.Container.get(services_1.LoggerSrv);
         loggerSrv.info(`\n${figlet.textSync("Sample")}`);
@@ -364,13 +375,14 @@ class MainServer extends events_1.EventEmitter {
 }
 exports.default = MainServer;
 
+/* WEBPACK VAR INJECTION */}.call(this, "server"))
 
 /***/ }),
 
-/***/ "./src/server/polyfills.ts":
-/*!*********************************!*\
-  !*** ./src/server/polyfills.ts ***!
-  \*********************************/
+/***/ "./server/polyfills.ts":
+/*!*****************************!*\
+  !*** ./server/polyfills.ts ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -387,10 +399,10 @@ __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 
 /***/ }),
 
-/***/ "./src/server/services/index.ts":
-/*!**************************************!*\
-  !*** ./src/server/services/index.ts ***!
-  \**************************************/
+/***/ "./server/services/index.ts":
+/*!**********************************!*\
+  !*** ./server/services/index.ts ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -399,7 +411,7 @@ __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 // System Services
-const system_1 = __webpack_require__(/*! ./system */ "./src/server/services/system/index.ts");
+const system_1 = __webpack_require__(/*! ./system */ "./server/services/system/index.ts");
 exports.SettingSrv = system_1.SettingSrv;
 exports.StorageSrv = system_1.StorageSrv;
 exports.LoggerSrv = system_1.LoggerSrv;
@@ -408,10 +420,10 @@ exports.SocketManagerSrv = system_1.SocketManagerSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/Logger.service.ts":
-/*!******************************************************!*\
-  !*** ./src/server/services/system/Logger.service.ts ***!
-  \******************************************************/
+/***/ "./server/services/system/Logger.service.ts":
+/*!**************************************************!*\
+  !*** ./server/services/system/Logger.service.ts ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -482,10 +494,10 @@ exports.default = LoggerSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/Setting.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/server/services/system/Setting.service.ts ***!
-  \*******************************************************/
+/***/ "./server/services/system/Setting.service.ts":
+/*!***************************************************!*\
+  !*** ./server/services/system/Setting.service.ts ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -502,40 +514,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
-const node_opcua_1 = __webpack_require__(/*! node-opcua */ "node-opcua");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
-const _1 = __webpack_require__(/*! . */ "./src/server/services/system/index.ts");
+const _1 = __webpack_require__(/*! . */ "./server/services/system/index.ts");
 let SettingSrv = class SettingSrv {
     constructor(logger) {
         this.logger = logger;
-        this.defaultAttributeIds = [
-            node_opcua_1.AttributeIds.NodeId,
-            node_opcua_1.AttributeIds.NodeClass,
-            node_opcua_1.AttributeIds.BrowseName,
-            node_opcua_1.AttributeIds.DisplayName,
-            node_opcua_1.AttributeIds.Description,
-            node_opcua_1.AttributeIds.WriteMask,
-            node_opcua_1.AttributeIds.UserWriteMask,
-            node_opcua_1.AttributeIds.EventNotifier,
-            node_opcua_1.AttributeIds.Value
-        ];
-        this.defaultSubscriptionOpts = {
-            requestedPublishingInterval: 200,
-            requestedMaxKeepAliveCount: 1000 * 60 * 10,
-            requestedLifetimeCount: 60,
-            maxNotificationsPerPublish: 100,
-            publishingEnabled: true,
-            priority: 10,
-        };
-        this.defaultOPCUAClientOpts = {
-            connectionStrategy: {
-                maxRetry: 5,
-                initialDelay: 2000,
-                maxDelay: 3000,
-            },
-            endpoint_must_exist: false,
-            keepSessionAlive: true,
-        };
         this.logger.info("created SettingSrv");
         this.settings = this.loadSettingFile();
     }
@@ -554,23 +537,14 @@ let SettingSrv = class SettingSrv {
         return Math.random().toString(35).substr(2, len);
     }
     loadSettingFile() {
-        const config = __webpack_require__(/*! ../../config/config.json */ "./src/server/config/config.json");
+        const config = __webpack_require__(/*! ../../config/config.json */ "./server/config/config.json");
         return config;
     }
     getPort() {
         return this.settings["port"];
     }
-    getTestEndpoint() {
-        return this.settings.testEndpointUrl;
-    }
     getSystemDbName() {
         return this.settings.sqlite;
-    }
-    get CertifivateFilePath() {
-        return this.settings.certificateFilePath;
-    }
-    set CertifivateFilePath(v) {
-        throw Error("not implemented");
     }
     getSettings() {
         return this.settings;
@@ -585,10 +559,10 @@ exports.default = SettingSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/SocketManager.service.ts":
-/*!*************************************************************!*\
-  !*** ./src/server/services/system/SocketManager.service.ts ***!
-  \*************************************************************/
+/***/ "./server/services/system/SocketManager.service.ts":
+/*!*********************************************************!*\
+  !*** ./server/services/system/SocketManager.service.ts ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -606,7 +580,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
-const _1 = __webpack_require__(/*! . */ "./src/server/services/system/index.ts");
+const _1 = __webpack_require__(/*! . */ "./server/services/system/index.ts");
 let SocketManagerSrv = class SocketManagerSrv {
     constructor(logger) {
         this.logger = logger;
@@ -650,10 +624,10 @@ exports.default = SocketManagerSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/Storage.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/server/services/system/Storage.service.ts ***!
-  \*******************************************************/
+/***/ "./server/services/system/Storage.service.ts":
+/*!***************************************************!*\
+  !*** ./server/services/system/Storage.service.ts ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -677,7 +651,7 @@ const driver = __webpack_require__(/*! db-migrate-sqlite3 */ "db-migrate-sqlite3
 const { dataType } = __webpack_require__(/*! db-migrate-shared */ "db-migrate-shared");
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
-const _1 = __webpack_require__(/*! . */ "./src/server/services/system/index.ts");
+const _1 = __webpack_require__(/*! . */ "./server/services/system/index.ts");
 const events_1 = __webpack_require__(/*! events */ "events");
 let StorageSrv = class StorageSrv extends events_1.EventEmitter {
     constructor(logger, settingSrv) {
@@ -738,10 +712,10 @@ exports.default = StorageSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/StorageMigration.service.ts":
-/*!****************************************************************!*\
-  !*** ./src/server/services/system/StorageMigration.service.ts ***!
-  \****************************************************************/
+/***/ "./server/services/system/StorageMigration.service.ts":
+/*!************************************************************!*\
+  !*** ./server/services/system/StorageMigration.service.ts ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -763,9 +737,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
 const events_1 = __webpack_require__(/*! events */ "events");
-const Migration_log_repository_1 = __importDefault(__webpack_require__(/*! ./repositories/Migration_log.repository */ "./src/server/services/system/repositories/Migration_log.repository.ts"));
-const Storage_service_1 = __importDefault(__webpack_require__(/*! ./Storage.service */ "./src/server/services/system/Storage.service.ts"));
-const _1 = __webpack_require__(/*! . */ "./src/server/services/system/index.ts");
+const Migration_log_repository_1 = __importDefault(__webpack_require__(/*! ./repositories/Migration_log.repository */ "./server/services/system/repositories/Migration_log.repository.ts"));
+const Storage_service_1 = __importDefault(__webpack_require__(/*! ./Storage.service */ "./server/services/system/Storage.service.ts"));
+const _1 = __webpack_require__(/*! . */ "./server/services/system/index.ts");
 let StorageMigrationSrv = class StorageMigrationSrv extends events_1.EventEmitter {
     constructor(logger, storageSrv, 
     /* sqlite3 table reposiotries */
@@ -843,10 +817,10 @@ exports.default = StorageMigrationSrv;
 
 /***/ }),
 
-/***/ "./src/server/services/system/index.ts":
-/*!*********************************************!*\
-  !*** ./src/server/services/system/index.ts ***!
-  \*********************************************/
+/***/ "./server/services/system/index.ts":
+/*!*****************************************!*\
+  !*** ./server/services/system/index.ts ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -856,22 +830,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Logger_service_1 = __importDefault(__webpack_require__(/*! ./Logger.service */ "./src/server/services/system/Logger.service.ts"));
+const Logger_service_1 = __importDefault(__webpack_require__(/*! ./Logger.service */ "./server/services/system/Logger.service.ts"));
 exports.LoggerSrv = Logger_service_1.default;
-const Setting_service_1 = __importDefault(__webpack_require__(/*! ./Setting.service */ "./src/server/services/system/Setting.service.ts"));
+const Setting_service_1 = __importDefault(__webpack_require__(/*! ./Setting.service */ "./server/services/system/Setting.service.ts"));
 exports.SettingSrv = Setting_service_1.default;
-const SocketManager_service_1 = __importDefault(__webpack_require__(/*! ./SocketManager.service */ "./src/server/services/system/SocketManager.service.ts"));
+const SocketManager_service_1 = __importDefault(__webpack_require__(/*! ./SocketManager.service */ "./server/services/system/SocketManager.service.ts"));
 exports.SocketManagerSrv = SocketManager_service_1.default;
-const Storage_service_1 = __importDefault(__webpack_require__(/*! ./Storage.service */ "./src/server/services/system/Storage.service.ts"));
+const Storage_service_1 = __importDefault(__webpack_require__(/*! ./Storage.service */ "./server/services/system/Storage.service.ts"));
 exports.StorageSrv = Storage_service_1.default;
 
 
 /***/ }),
 
-/***/ "./src/server/services/system/repositories/Migration_log.repository.ts":
-/*!*****************************************************************************!*\
-  !*** ./src/server/services/system/repositories/Migration_log.repository.ts ***!
-  \*****************************************************************************/
+/***/ "./server/services/system/repositories/Migration_log.repository.ts":
+/*!*************************************************************************!*\
+  !*** ./server/services/system/repositories/Migration_log.repository.ts ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -892,8 +866,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 const typedi_1 = __webpack_require__(/*! typedi */ "typedi");
-const Storage_service_1 = __importDefault(__webpack_require__(/*! ../Storage.service */ "./src/server/services/system/Storage.service.ts"));
-const __1 = __webpack_require__(/*! .. */ "./src/server/services/system/index.ts");
+const Storage_service_1 = __importDefault(__webpack_require__(/*! ../Storage.service */ "./server/services/system/Storage.service.ts"));
+const __1 = __webpack_require__(/*! .. */ "./server/services/system/index.ts");
 const { dataType } = __webpack_require__(/*! db-migrate-shared */ "db-migrate-shared");
 let Migration_logRepository = class Migration_logRepository {
     constructor(logger, storageSrv) {
@@ -948,18 +922,6 @@ exports.default = Migration_logRepository;
 
 /***/ }),
 
-/***/ 0:
-/*!***************************!*\
-  !*** multi ./src/main.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! ./src/main.ts */"./src/main.ts");
-
-
-/***/ }),
-
 /***/ "cors":
 /*!***********************!*\
   !*** external "cors" ***!
@@ -990,6 +952,17 @@ module.exports = require("db-migrate-shared");
 /***/ (function(module, exports) {
 
 module.exports = require("db-migrate-sqlite3");
+
+/***/ }),
+
+/***/ "ejs":
+/*!**********************!*\
+  !*** external "ejs" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("ejs");
 
 /***/ }),
 
@@ -1048,14 +1021,14 @@ module.exports = require("morgan");
 
 /***/ }),
 
-/***/ "node-opcua":
-/*!*****************************!*\
-  !*** external "node-opcua" ***!
-  \*****************************/
+/***/ "path":
+/*!***********************!*\
+  !*** external "path" ***!
+  \***********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("node-opcua");
+module.exports = require("path");
 
 /***/ }),
 

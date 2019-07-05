@@ -1,4 +1,3 @@
-'use strict';
 import "reflect-metadata";
 import './polyfills';
 
@@ -7,11 +6,12 @@ import { useContainer as useContainerSocket, useSocketServer } from "socket-cont
 import { Container, } from 'typedi';
 
 import http from "http";
-import express from "express";
+import express, { Express }  from "express";
 import socketIO from "socket.io";
 const morgan = require('morgan');
 const figlet = require('figlet');
 const cors = require("cors");
+const path = require('path');
 
 import './controllers';
 import {
@@ -36,7 +36,9 @@ export default class MainServer extends EventEmitter {
   private server: http.Server;
 
   constructor(port?: string) {
+    const rootPath: string = path.join("dist");
     super();
+
     /* setter */
     useContainer(Container);
     useContainerSocket(Container);
@@ -44,12 +46,26 @@ export default class MainServer extends EventEmitter {
     /* create Server */
     this.app = express();
     this.app.use(cors());
+
+    /* set Html View Render */
+    this.app.engine('html', require('ejs').renderFile);
+    this.app.set('views', path.join(rootPath, 'public'));
+    this.app.set('view engine', 'html');
+
     useExpressServer(this.app);
     this.server = http.createServer(this.app);
+    this.app.use(express.static(rootPath));
 
     /* create websocket listener */
-    this.io = socketIO(this.server, { serveClient: false });
-    useSocketServer(this.io);
+    this.io = socketIO(this.server);
+    this.io.use((socket: any, next: Function) => {
+        console.log("Custom middleware");
+        next();
+    });
+    console.log(__dirname);
+    useSocketServer(this.io, {
+      controllers: [path.join(__dirname, "controllers", "websocket" ,"*.js")],
+    });
 
     /* create System Logger */
     const loggerSrv = Container.get(LoggerSrv);
@@ -71,6 +87,7 @@ export default class MainServer extends EventEmitter {
     const etcInstances = [
       { name: "socketIO", instance: this.io },
     ];
+
     const loggerSrv = Container.get(LoggerSrv);
     for (const { name, instance } of etcInstances) {
       Container.set(name, instance);
@@ -99,11 +116,12 @@ export default class MainServer extends EventEmitter {
     this.emit("ready");
   }
 
-  public getApp(): express.Express {
+  public getApp(): Express {
     return this.app;
   }
 
   public runServ(): Promise<http.Server> {
+
     const loggerSrv = Container.get(LoggerSrv);
     return new Promise((resolve: any) => {
       this.once("ready", () => {

@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {Controller, Param, Body, Get, Post, Put, Delete, Req, Patch, ContentType, } from "routing-controllers";
+import {Controller, Get, Post, Put, Delete, Req, Patch, ContentType, Render, } from "routing-controllers";
 import { LoggerSrv } from "../../services";
 
 @Controller("")
@@ -10,11 +10,8 @@ export class RootController {
     }
 
     @Get("/")
-    @ContentType("application/json")
+    @Render("index.html")
     helloServer() {
-        return [
-            { hello: "Hello Node.js Express Server" },
-        ];
     }
 
     @Get("/api")

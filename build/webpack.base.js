@@ -1,8 +1,9 @@
-const Webpack = require( "webpack" );
+const Webpack = require("webpack");
 const glob = require("glob");
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin'); //installed via npm
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const nodeExternals = require("webpack-node-externals"); //node_modules exclude
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir);
@@ -17,9 +18,17 @@ module.exports = {
     __filename: true,
   },
   externals: [nodeExternals()],
-  entry: glob.sync("./**/main.ts"),
+  
+  context: resolve('src'),
+
+  entry: {
+    'main': './main.ts',
+    'public/app': './public/index.ts',
+  },
+
   output: {
     path: resolve('dist'),
+    publicPath: '/',
     filename: "[name].bundle.js",
   },
   module: {
@@ -29,6 +38,12 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+        }
+      }
     ]
   },
   resolve: {
@@ -36,7 +51,12 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist'], { root: resolve('/'), }),
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      excludeChunks: ['main'],
+      template: `public/index.html`,
+      filename: 'public/index.html',
+    }),
     new Webpack.IgnorePlugin(/uws/),
   ],
 };
