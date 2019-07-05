@@ -1,5 +1,5 @@
 {
-  "name": "node-js-example",
+  "name": "ts-express-server-example",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -16,10 +16,11 @@
   "keywords": [
     "typescript",
     "nodejs",
-    "webpack"
+    "webpack",
+    "express"
   ],
-  "author": "gunwoo@hancommds.com",
-  "license": "ISC",
+  "author": "whitesky0109@naver.com",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
