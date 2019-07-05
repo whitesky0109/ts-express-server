@@ -20,7 +20,7 @@ import {
   // Message Processing Services
   SocketManagerService,
 } from './services';
-import { IService } from '../models';
+import { IService } from '../models/server';
 import { EventEmitter } from 'events';
 import StorageMigrationService from './services/system/StorageMigration.service';
 
@@ -125,7 +125,7 @@ export default class MainServer extends EventEmitter {
       this.once('ready', async () => {
         resolve(this.server.listen(this.port, () =>
           loggerSrv.info(`listening on port ${this.port}`)));
-        await open('http://localhost:4000');
+        // await open('http://localhost:4000');
       });
     });
   }

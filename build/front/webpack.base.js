@@ -30,8 +30,25 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        enforce: 'pre',
         exclude: /node_modules/,
+        use: {
+          loader: 'tslint-loader',
+          options: {
+            emitErrors: true,
+            typeCheck: false,
+          }
+        },
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true
+          },
+        },
       },
       {
         test: /\.(html)$/,

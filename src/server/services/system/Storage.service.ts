@@ -9,7 +9,7 @@ import 'reflect-metadata';
 import { Service } from 'typedi';
 import { SettingService, LoggerService } from '.';
 import { EventEmitter } from 'events';
-import { IService } from '../../../models';
+import { IService } from '../../../models/server';
 
 @Service()
 export default class StorageService extends EventEmitter implements IService {
@@ -18,11 +18,11 @@ export default class StorageService extends EventEmitter implements IService {
   private dbname: string;
 
   constructor(
-        private logger: LoggerService,
+        private loggerService: LoggerService,
         private settingSrv: SettingService,
     ) {
     super();
-    this.logger.info('created StorageSrv');
+    this.loggerService.info('created StorageSrv');
     this.dbname = this.settingSrv.getSystemDbName();
   }
 
@@ -30,7 +30,7 @@ export default class StorageService extends EventEmitter implements IService {
     return new Promise((resolve, reject) => {
       this.connect(this.dbname).then((db: any) => {
         this.db = db;
-        this.logger.info(`Connected to the ${this.dbname} database.`);
+        this.loggerService.info(`Connected to the ${this.dbname} database.`);
         resolve();
       },                             (error: Error) => {
         reject(error);
@@ -39,14 +39,14 @@ export default class StorageService extends EventEmitter implements IService {
   }
 
   private connect(dbname: string): Promise<any> {
-    this.logger.info(`try load sqlite : ${dbname}`);
-    (this.logger as any)['sql'] = this.sqlLogger.bind(this);
+    this.loggerService.info(`try load sqlite : ${dbname}`);
+    (this.loggerService as any)['sql'] = this.sqlLogger.bind(this);
 
     return new Promise((resolve, reject) => {
             /* if not exist then create database file */
       const internals = {
         mod: {
-          log: this.logger,
+          log: this.loggerService,
           type: dataType,
         },
         interfaces: {

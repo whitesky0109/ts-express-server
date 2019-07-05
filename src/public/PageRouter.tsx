@@ -5,11 +5,11 @@ import { createHashHistory } from 'history';
 // Components
 import Login from './Login';
 
-const history = createHashHistory();
-
 export default class PageRouter extends PureComponent {
+  history = createHashHistory();
+
   render(): ReactNode {
-    return <Router history={history}>
+    return <Router history={this.history}>
       <Route path="/" component={Login} />
     </Router>;
   }
