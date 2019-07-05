@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import './polyfills';
 
 import { useContainer, useExpressServer } from 'routing-controllers';
 import { useContainer as useContainerSocket, useSocketServer } from 'socket-controllers';
