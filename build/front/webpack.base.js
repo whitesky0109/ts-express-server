@@ -13,7 +13,7 @@ module.exports = {
   context: resolve(path.join('src', 'public')),
 
   entry: {
-    app: './index.ts',
+    app: './index.tsx',
   },
 
   resolve: {

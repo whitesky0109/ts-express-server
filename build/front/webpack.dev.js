@@ -10,7 +10,7 @@ module.exports = Object.assign(baseWebpackConfig, {
   mode: 'development',
 
   entry: {
-    app: ['webpack-dev-server/client?http://localhost:3333', './index.ts',],
+    app: ['webpack-dev-server/client?http://localhost:3333', './index.tsx',],
   },
 
   devtool: 'eval-source-map',
