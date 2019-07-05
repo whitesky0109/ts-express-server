@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npm run server:build && npm run front:build",
+    "build": "yarn server:build && yarn front:build",
     "test": "echo \"Error: no test specified\" && exit 1",
+
     "server:build": "webpack --config ./build/server/webpack.prod.js --progress",
     "server:dev": "webpack --config ./build/server/webpack.dev.js --progress",
     "server:watch": "webpack --config ./build/server/webpack.dev.js --progress --watch",
     "server:start": "node ./dist/server.bundle.js",
+
     "front:build": "webpack --config ./build/front/webpack.prod.js --progress",
     "front:dev": "webpack --config ./build/front/webpack.dev.js --progress",
     "front:watch": "webpack-dev-server --mode development --progress --colors --config ./build/front/webpack.dev.js "
