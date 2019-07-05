@@ -1,26 +1,27 @@
 export interface IMigration {
-    migration_id: string;
-    action: string;
-    args: any[];
+  migration_id: string;
+  action: string;
+  args: any[];
 }
 
 export interface IRepository {
-    migrations(): IMigration[];
+  migrations(): IMigration[];
 }
 
 export interface IService {
-    init(): Promise<any>;
+  init(): Promise<any>;
 }
 
 export interface IMigrationLog {
-    id: number;
-    migration_id: string;
-    action: string;
-    success: boolean;
-    error: string;
-    timestamp: Date;
+  id: number;
+  migration_id: string;
+  action: string;
+  success: boolean;
+  error: string;
+  timestamp: Date;
 }
 
 export interface IMigrationLogs {
-    [migration_id: string]: IMigrationLog;
+  // tslint:disable-next-line: variable-name
+  [migration_id: string]: IMigrationLog;
 }
